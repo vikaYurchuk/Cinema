@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Cinema.Data;
+using System.Numerics;
+using Cinema.Entities;
 
 namespace Cinema.Controllers
 {
@@ -13,7 +15,7 @@ namespace Cinema.Controllers
             context = new CinemaDbContext();
         }
 
-        // GET: FilmsController
+        // GET: 
         public ActionResult Index()
         {
             var films = context.FilmTeams
@@ -22,13 +24,42 @@ namespace Cinema.Controllers
 
             return View(films);
         }
+        [HttpGet]
+        public ActionResult Create()
+        {
+            return View();
+        }
 
+        [HttpPost]
+        public ActionResult Create(Film film)
+        {
+            if (!ModelState.IsValid)
+                return View();
+
+            context.FilmTeams.Add(film);
+            context.SaveChanges();
+
+            return RedirectToAction("Index");
+        }
+
+        
+
+        public ActionResult Details(int id)
+        {
+            var film = context.FilmTeams
+                .Include(x => x.Actors)
+                .FirstOrDefault(x => x.Id == id);
+
+            if (film == null) return NotFound();
+
+            return View(film);
+        }
         public ActionResult Delete(int id)
         {
-            var player = context.FilmTeams.Find(id);
-            if (player == null) return NotFound();
+            var film = context.FilmTeams.Find(id);
+            if (film == null) return NotFound();
 
-            context.FilmTeams.Remove();
+            context.FilmTeams.Remove(film);
             context.SaveChanges();
 
             return RedirectToAction("Index");

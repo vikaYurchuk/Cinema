@@ -26,10 +26,10 @@ namespace Cinema.Controllers
 
         public ActionResult Delete(int id)
         {
-            var player = context.CinemaActors.Find(id);
-            if (player == null) return NotFound();
+            var actor = context.CinemaActors.Find(id);
+            if (actor == null) return NotFound();
 
-            context.CinemaActors.Remove();
+            context.CinemaActors.Remove(actor);
             context.SaveChanges();
 
             return RedirectToAction("Index");
