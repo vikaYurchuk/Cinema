@@ -3,6 +3,24 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Cinema</h1>
-    
+    <h1 class="display-4">Available Movies</h1>
+    <p>Explore our collection of movies currently showing in the cinema.</p>
+</div>
+
+<div class="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-4">
+    @foreach (var film in Model)
+    {
+        <div class="col">
+            <div class="card" style="width: 10rem;">
+                <img src="@film.Cover" height="150" class="card-img-top" alt="Movie Cover">
+                <div class="card-body">
+                    <h5 class="card-title">@film.Name (@film.Year)</h5>
+                    <p class="card-text">
+                        <div>Genre: @film.Genre</div>
+                        <div>Duration: @film.Duration min</div>
+                    </p>
+                </div>
+            </div>
+        </div>
+    }
 </div>
