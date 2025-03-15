@@ -9,8 +9,8 @@ namespace Cinema.Data;
 
 public class CinemaDbContext : DbContext
 {
-    public DbSet<Film> FilmTeams { get; set; }
-    public DbSet<Actor> CinemaActors { get; set; }
+    public DbSet<Film> FilmTeams4 { get; set; }
+    public DbSet<Actor> CinemaActors4 { get; set; }
 
     public CinemaDbContext() { }
 

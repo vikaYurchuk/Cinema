@@ -17,7 +17,7 @@ namespace Cinema.Controllers
 
         public IActionResult Index()
         {
-            return View(context.FilmTeams.ToList()); 
+            return View(context.FilmTeams4.ToList()); 
         }
 
         public IActionResult Privacy()

@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Cinema.Data;
 using System.Numerics;
 using Cinema.Entities;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Cinema.Controllers
 {
@@ -18,7 +19,7 @@ namespace Cinema.Controllers
         // GET: 
         public ActionResult Index()
         {
-            var films = context.FilmTeams
+            var films = context.FilmTeams4
                 .Include(x => x.Actors)
                 .ToList();
 
@@ -36,17 +37,40 @@ namespace Cinema.Controllers
             if (!ModelState.IsValid)
                 return View();
 
-            context.FilmTeams.Add(film);
+            context.FilmTeams4.Add(film);
             context.SaveChanges();
 
             return RedirectToAction("Index");
         }
 
-        
+        [HttpGet]
+        public ActionResult Edit(int id)
+        {
+            var film = context.FilmTeams4.Find(id);
+            if (film == null) return NotFound();
+
+            LoadTeams();
+            return View(film);
+        }
+
+        [HttpPost]
+        public ActionResult Edit(Film film)
+        {
+            if (!ModelState.IsValid)
+            {
+                LoadTeams();
+                return View();
+            }
+
+            context.FilmTeams4.Update(film);
+            context.SaveChanges();
+
+            return RedirectToAction("Index");
+        }
 
         public ActionResult Details(int id)
         {
-            var film = context.FilmTeams
+            var film = context.FilmTeams4
                 .Include(x => x.Actors)
                 .FirstOrDefault(x => x.Id == id);
 
@@ -56,13 +80,18 @@ namespace Cinema.Controllers
         }
         public ActionResult Delete(int id)
         {
-            var film = context.FilmTeams.Find(id);
+            var film = context.FilmTeams4.Find(id);
             if (film == null) return NotFound();
 
-            context.FilmTeams.Remove(film);
+            context.FilmTeams4.Remove(film);
             context.SaveChanges();
 
             return RedirectToAction("Index");
+        }
+        private void LoadTeams()
+        {
+            var teams = new SelectList(context.FilmTeams4.ToList(), "Id", "Name");
+            ViewBag.Teams = teams;
         }
     }
 }

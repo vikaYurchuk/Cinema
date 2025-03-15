@@ -17,7 +17,7 @@ namespace Cinema.Controllers
         // GET: 
         public ActionResult Index()
         {
-            var actors = context.CinemaActors
+            var actors = context.CinemaActors4
                 .Include(x => x.Film)
                 .ToList();
 
@@ -26,10 +26,10 @@ namespace Cinema.Controllers
 
         public ActionResult Delete(int id)
         {
-            var actor = context.CinemaActors.Find(id);
+            var actor = context.CinemaActors4.Find(id);
             if (actor == null) return NotFound();
 
-            context.CinemaActors.Remove(actor);
+            context.CinemaActors4.Remove(actor);
             context.SaveChanges();
 
             return RedirectToAction("Index");

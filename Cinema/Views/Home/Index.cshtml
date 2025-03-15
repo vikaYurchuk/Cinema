@@ -23,4 +23,10 @@
             </div>
         </div>
     }
+    @foreach (var i in Model)
+    {
+        <div class="col">
+            <partial name="_CardPartial" model="@i" />
+        </div>
+    }
 </div>

@@ -1,6 +1,6 @@
 ﻿@model List<Film>
 
-<h1>Filma page</h1>
+<h1>Film page</h1>
 
 <p>
     <a asp-action="Create" class="btn btn-primary">Create New Film</a>
@@ -10,11 +10,13 @@
     <thead class="table-dark">
         <tr>
             <th scope="col">#</th>
+            <th scope="col"></th>
+
             <th scope="col">Name</th>
             <th scope="col">Genre</th>
-            <th scope="col">Actors</th>
+           @* <th scope="col">Actors</th>*@
             <th scope="col">Duration</th>
-            
+            <th scope="col"></th>
         </tr>
     </thead>
     <tbody>
@@ -27,17 +29,23 @@
                 </td>
                 <td>@i.Name</td>
                 <td>@i.Genre</td>
-                
-              
+                <td>@i.Duration</td>
+
+
                 <td>
                     <div class="btn-group" role="group">
-                        <button type="button" class="btn btn-outline-secondary">
+                        <a asp-action="Details" asp-route-id="@i.Id" class="btn btn-outline-secondary">
                             <i class="bi bi-info-square-fill"></i>
-                        </button>
-                        <button type="button" class="btn btn-outline-secondary">
+                        </a>
+                        <a asp-action="Edit" asp-route-id="@i.Id" class="btn btn-outline-secondary">
                             <i class="bi bi-pencil-square"></i>
-                        </button>
-                        <a asp-action="Delete" asp-route-id="@i.Id" class="btn btn-outline-danger">
+                        </a>
+                        @* asp-action="Delete" asp-route-id="@i.Id" *@
+                        <a class="btn btn-outline-danger"
+                       data-bs-toggle="modal"
+                       data-bs-target="#deleteModal"
+                       data-bs-id="@i.Id"
+                       data-bs-surname="@i.Name">
                             <i class="bi bi-trash3-fill"></i>
                         </a>
                     </div>
@@ -46,3 +54,46 @@
         }
     </tbody>
 </table>
+<!-- Vertically centered modal -->
+<div class="modal" id="deleteModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Delete film</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete <span class="surname"></span>?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                <a asp-action="Delete" class="btn btn-danger" id="deleteBtn">Yes</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+    {
+    <script>
+        var modal = document.getElementById('deleteModal')
+        var deleteBtn = document.getElementById('deleteBtn')
+
+        modal.addEventListener('show.bs.modal', function (event) {
+            // Button that triggered the modal
+            var button = event.relatedTarget
+            // Extract info from data-bs-* attributes
+            var surname = button.getAttribute('data-bs-surname')
+
+            // Update the modal's content.
+            var textSurname = modal.querySelector('.modal-body .surname')
+            textSurname.textContent = surname
+
+            // --- id
+            var id = button.getAttribute('data-bs-id')
+            var deleteBtn = modal.querySelector('.modal #deleteBtn')
+            deleteBtn.setAttribute('href', "/films/delete/" + id)
+        })
+
+    </script>
+}
