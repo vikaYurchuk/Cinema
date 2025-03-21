@@ -10,7 +10,7 @@ public class Film
     public string Cover { get; set; }
 
     public int Year { get; set; }
-    [Range(0, int.MaxValue, ErrorMessage = "Genre cannot be emphty.")]
+    //[Range(0, int.MaxValue, ErrorMessage = "Genre cannot be emphty.")]
     public string Genre { get; set; }
     [Range(0, int.MaxValue, ErrorMessage = "Duration cannot be negative.")]
     public int Duration { get; set; }
