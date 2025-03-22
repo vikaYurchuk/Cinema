@@ -34,19 +34,15 @@
 
                 <td>
                     <div class="btn-group" role="group">
-                        <a asp-action="Details" asp-route-id="@i.Id" class="btn btn-outline-secondary">
-                            <i class="bi bi-info-square-fill"></i>
-                        </a>
-                        <a asp-action="Edit" asp-route-id="@i.Id" class="btn btn-outline-secondary">
-                            <i class="bi bi-pencil-square"></i>
-                        </a>
+                       
+                        <a asp-action="Details" asp-route-id="@i.Id" class="btn btn-outline-secondary">Details</a>
+                        <a asp-action="Edit" asp-route-id="@i.Id" class="btn btn-outline-secondary">Edit</a>
                         @* asp-action="Delete" asp-route-id="@i.Id" *@
                         <a class="btn btn-outline-danger"
                        data-bs-toggle="modal"
                        data-bs-target="#deleteModal"
                        data-bs-id="@i.Id"
-                       data-bs-surname="@i.Name">
-                            <i class="bi bi-trash3-fill"></i>
+                       data-bs-surname="@i.Name">Delete
                         </a>
                     </div>
                 </td>

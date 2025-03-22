@@ -93,5 +93,13 @@ namespace Cinema.Controllers
             var teams = new SelectList(context.FilmTeams4.ToList(), "Id", "Name");
             ViewBag.Teams = teams;
         }
+
+
+
+
+
+
+
+
     }
 }

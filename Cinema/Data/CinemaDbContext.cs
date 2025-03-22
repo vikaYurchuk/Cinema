@@ -13,7 +13,10 @@ public class CinemaDbContext : DbContext
     public DbSet<Actor> CinemaActors4 { get; set; }
 
     public CinemaDbContext() { }
-
+    public CinemaDbContext(DbContextOptions<CinemaDbContext> options) : base(options)
+    {
+        //this.Database.EnsureCreated();
+    }
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         base.OnConfiguring(optionsBuilder);

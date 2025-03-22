@@ -1,8 +1,27 @@
+using Cinema;
+using Cinema.Data;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
+string connStr = builder.Configuration.GetConnectionString("SomeeDb");
 
-// Add services to the container.
+
 builder.Services.AddControllersWithViews();
+builder.Services.AddDbContext<CinemaDbContext>(opts =>
+    opts.UseSqlServer(connStr));
 
+
+builder.Services.AddScoped<FavouritesService>();
+builder.Services.AddHttpContextAccessor();
+
+builder.Services.AddDistributedMemoryCache();
+
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromDays(7);
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -19,6 +38,7 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
+app.UseSession();
 
 app.MapControllerRoute(
     name: "default",
