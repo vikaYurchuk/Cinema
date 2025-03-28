@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@inject FavouritesService favService
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -29,7 +31,9 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Films" asp-action="Index">Films</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Favourites" asp-action="Index">Favourites</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Favourites" asp-action="Index">
+                                Favourites(@favService.GetCount())
+                            </a>
                         </li>
                     </ul>
                 </div>

@@ -17,16 +17,22 @@ namespace Cinema
             return View(ids);
         }
 
-        public ActionResult Add(int id)
+        public ActionResult Add(int id, string? returnUrl)
         {
             favService.Add(id);
-            return RedirectToAction("Index");
+
+            return returnUrl != null ?
+                Redirect(returnUrl) :
+                RedirectToAction("Index", "Home");
         }
 
-        public ActionResult Remove(int id)
+        public ActionResult Remove(int id, string? returnUrl)
         {
             favService.Remove(id);
-            return RedirectToAction("Index");
+
+            return returnUrl != null ?
+                Redirect(returnUrl) :
+                RedirectToAction("Index", "Home");
         }
     }
 }

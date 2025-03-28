@@ -68,14 +68,15 @@ namespace Cinema.Controllers
             return RedirectToAction("Index");
         }
 
-        public ActionResult Details(int id)
+        public async Task<IActionResult> Details(int? id, string? returnUrl = null)
         {
-            var film = context.FilmTeams4
-                .Include(x => x.Actors)
-                .FirstOrDefault(x => x.Id == id);
+            if (id == null) return NotFound();
 
-            if (film == null) return NotFound();
+            var film = await context.FilmTeams4.FindAsync(id);
 
+            if (film == null) return NotFound(); 
+
+            ViewBag.ReturnUrl = returnUrl;
             return View(film);
         }
         public ActionResult Delete(int id)
