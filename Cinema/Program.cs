@@ -1,5 +1,7 @@
 using Cinema;
 using Cinema.Data;
+using Cinema.Entities;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -7,8 +9,20 @@ string connStr = builder.Configuration.GetConnectionString("SomeeDb");
 
 
 builder.Services.AddControllersWithViews();
+
+//builder.Services.AddIdentity<User, IdentityRole>(options =>
+//        options.SignIn.RequireConfirmedAccount = false)
+//    .AddDefaultTokenProviders()
+//    //.AddDefaultUI()
+//    .AddEntityFrameworkStores<CinemaDbContext>();
+
+
+
 builder.Services.AddDbContext<CinemaDbContext>(opts =>
     opts.UseSqlServer(connStr));
+
+builder.Services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<CinemaDbContext>();
+
 
 
 builder.Services.AddScoped<FavouritesService>();
@@ -22,6 +36,8 @@ builder.Services.AddSession(options =>
     options.Cookie.HttpOnly = true;
     options.Cookie.IsEssential = true;
 });
+
+builder.Services.AddRazorPages();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -40,6 +56,7 @@ app.UseRouting();
 app.UseAuthorization();
 app.UseSession();
 
+app.MapRazorPages();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
