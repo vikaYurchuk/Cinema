@@ -30,6 +30,11 @@
                     <input asp-for="Input.Birthdate" class="form-control" />
                     <label asp-for="Input.Birthdate">Birthdate</label>
                     <span asp-validation-for="Input.Birthdate" class="text-danger"></span>
+                    <div class="form-floating mb-3">
+                        <input asp-for="Input.Address" class="form-control" placeholder="123 Main St" />
+                        <label asp-for="Input.Address">Address</label>
+                        <span asp-validation-for="Input.Address" class="text-danger"></span>
+                    </div>
                 
             </div>
             <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Register</button>
