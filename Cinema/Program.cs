@@ -21,7 +21,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<CinemaDbContext>(opts =>
     opts.UseSqlServer(connStr));
 
-builder.Services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<CinemaDbContext>();
+builder.Services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = false).AddEntityFrameworkStores<CinemaDbContext>();
 
 
 
