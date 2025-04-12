@@ -2,6 +2,7 @@ using Cinema;
 using Cinema.Data;
 using Cinema.Entities;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -23,7 +24,7 @@ builder.Services.AddDbContext<CinemaDbContext>(opts =>
 
 builder.Services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = false).AddEntityFrameworkStores<CinemaDbContext>();
 
-
+builder.Services.AddScoped<IEmailSender, EmailService>();
 
 builder.Services.AddScoped<FavouritesService>();
 builder.Services.AddHttpContextAccessor();
