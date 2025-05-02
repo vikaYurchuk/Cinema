@@ -1,7 +1,10 @@
 ﻿using Cinema.Models;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using Cinema.Data;
 using System.Diagnostics;
+using SQLitePCL;
+using Cinema.Entities;
 
 namespace Cinema.Controllers
 {
@@ -15,9 +18,15 @@ namespace Cinema.Controllers
             context = new CinemaDbContext();
         }
 
-        public IActionResult Index()
+        public async Task <IActionResult> Index([FromQuery] string? name , [FromQuery] string? genre)
         {
-            return View(context.FilmTeams4.ToList()); 
+            IQueryable<Film> items = context.FilmTeams4;
+
+            if (name != null)
+                items = items.Where(x => x.Name.Contains(name));
+            if (genre != null)
+                items = items.Where(x => x.Genre.Contains(genre));
+            return View(await items.ToListAsync()); 
         }
 
         public IActionResult Privacy()

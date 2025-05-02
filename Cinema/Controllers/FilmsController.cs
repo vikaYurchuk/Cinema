@@ -20,11 +20,14 @@ namespace Cinema.Controllers
             _emailSender = emailSender;
         }
 
-     
-        
+
+
         // GET: 
+
+
         public ActionResult Index()
         {
+
             var films = context.FilmTeams4
                 .Include(x => x.Actors)
                 .ToList();
