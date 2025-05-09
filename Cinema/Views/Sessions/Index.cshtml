@@ -1,0 +1,89 @@
+﻿@model List<Session>
+
+<h1>Sessions</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Create New Session</a>
+</p>
+
+<table class="table table-striped table-hover">
+    <thead class="table-dark">
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Film</th>
+            <th scope="col">Start Time</th>
+            <th scope="col">Hall</th>
+            <th scope="col">Price</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var session in Model)
+        {
+            <tr class="align-middle">
+                <th scope="row">@session.Id</th>
+                <td>@session.Film.Name</td>
+                <td>@session.StartTime.ToString("g")</td>
+                <td>@session.Hall</td>
+                <td>@session.Price</td>
+
+                <td>
+                    <div class="btn-group" role="group">
+                        <a asp-action="Details" asp-route-id="@session.Id" class="btn btn-outline-secondary">Details</a>
+                        <a asp-action="Edit" asp-route-id="@session.Id" class="btn btn-outline-secondary">Edit</a>
+                        <a class="btn btn-outline-danger"
+                           data-bs-toggle="modal"
+                           data-bs-target="#deleteModal"
+                           data-bs-id="@session.Id"
+                           data-bs-name="@session.Film.Name">
+                            Delete
+                        </a>
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<!-- Vertically centered modal -->
+@* <div class="modal" id="deleteModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Delete Session</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete this session for film <span class="name"></span>?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                <a asp-action="Delete" class="btn btn-danger" id="deleteBtn">Yes</a>
+            </div>
+        </div>
+    </div>
+</div> *@
+
+@* @section Scripts
+{
+    <script>
+        var modal = document.getElementById('deleteModal')
+        var deleteBtn = document.getElementById('deleteBtn')
+
+        modal.addEventListener('show.bs.modal', function (event) {
+            // Button that triggered the modal
+            var button = event.relatedTarget
+            // Extract info from data-bs-* attributes
+            var name = button.getAttribute('data-bs-name')
+
+            // Update the modal's content.
+            var textName = modal.querySelector('.modal-body .name')
+            textName.textContent = name
+
+            // --- id
+            var id = button.getAttribute('data-bs-id')
+            var deleteBtn = modal.querySelector('.modal #deleteBtn')
+            deleteBtn.setAttribute('href', "/sessions/delete/" + id)
+        })
+    </script>
+} *@
