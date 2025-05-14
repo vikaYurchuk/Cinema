@@ -16,6 +16,9 @@ public class CinemaDbContext : IdentityDbContext<User>
     public DbSet<Film> FilmTeams4 { get; set; }
     public DbSet<Actor> CinemaActors4 { get; set; }
     public DbSet<Session> Sessions { get; set; }
+   
+    public DbSet<FavoriteItem> FavoriteItems { get; set; }
+   
 
     public CinemaDbContext() { }
     public CinemaDbContext(DbContextOptions<CinemaDbContext> options) : base(options)
@@ -44,6 +47,8 @@ public class CinemaDbContext : IdentityDbContext<User>
         modelBuilder.Entity<Session>()
         .Property(s => s.Price)
         .HasPrecision(10, 2);
+        modelBuilder.Entity<FavoriteItem>()
+           .HasKey(x => new { x.UserId, x.FilmId });
 
 
 

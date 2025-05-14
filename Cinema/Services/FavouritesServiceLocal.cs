@@ -1,20 +1,17 @@
-using Microsoft.AspNetCore.Http;
-using Cinema.Data;
 using Cinema.Extensions;
-using Cinema.Models;
+using Cinema.Interfaces;
+using Cinema.Data;
 using Cinema.Entities;
-
-
 
 namespace Cinema;
 
-public class FavouritesService
+public class FavouritesServiceLocal : IFavoriteService
 {
     private readonly ISession _session;
     private readonly CinemaDbContext _context;
     private const string key = "favourite_list";
 
-    public FavouritesService(IHttpContextAccessor accessor, CinemaDbContext context)
+    public FavouritesServiceLocal(IHttpContextAccessor accessor, CinemaDbContext context)
     {
         this._session = accessor.HttpContext.Session;
         _context = context;
@@ -51,8 +48,14 @@ public class FavouritesService
     {
         _session.Remove(key);
     }
+
     public int GetCount()
     {
         return GetIds().Count;
+    }
+
+    List<Film> IFavoriteService.GetAll()
+    {
+        throw new NotImplementedException();
     }
 }

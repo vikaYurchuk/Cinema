@@ -26,7 +26,7 @@ builder.Services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfi
 
 builder.Services.AddScoped<IEmailSender, EmailService>();
 
-builder.Services.AddScoped<FavouritesService>();
+builder.Services.AddScoped<FavouritesServiceDb>();
 builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddDistributedMemoryCache();

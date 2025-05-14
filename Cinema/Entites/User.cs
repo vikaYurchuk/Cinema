@@ -6,5 +6,6 @@ public class User : IdentityUser
 {
     public string Address { get; set; }
     public DateTime Birthdate { get; set; }
+    public ICollection<FavoriteItem> FavoriteItems { get; set; }
 
 }

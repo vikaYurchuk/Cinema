@@ -4,9 +4,9 @@ namespace Cinema
 {
     public class FavouritesController : Controller
     {
-        private readonly FavouritesService favService;
+        private readonly FavouritesServiceDb favService;
 
-        public FavouritesController(FavouritesService favService)
+        public FavouritesController(FavouritesServiceDb favService)
         {
             this.favService = favService;
         }
