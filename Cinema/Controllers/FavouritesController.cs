@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Cinema
 {
@@ -17,13 +18,19 @@ namespace Cinema
             return View(ids);
         }
 
+        //public ActionResult Add(int id, string? returnUrl)
+        //{
+        //    favService.Add(id);
+
+        //    return returnUrl != null ?
+        //        Redirect(returnUrl) :
+        //        RedirectToAction("Index", "Home");
+        //}
+        [Authorize]
         public ActionResult Add(int id, string? returnUrl)
         {
-            favService.Add(id);
-
-            return returnUrl != null ?
-                Redirect(returnUrl) :
-                RedirectToAction("Index", "Home");
+           favService.Add(id);
+            return returnUrl != null ? Redirect(returnUrl) : RedirectToAction("Index", "Home");
         }
 
         public ActionResult Remove(int id, string? returnUrl)
